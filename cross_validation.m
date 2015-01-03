@@ -7,7 +7,7 @@ function [ best_hyper_parameters ] = cross_validation( data,...
 % and it will use classification
 
 % Random Partitions for the first cross-validation
-partitions = crossvalind('Kfold', size(data,1), k_fold1);
+partitions = crossvalind('Kfold', size(data,1), k_fold);
 
 % Hyper-parameters
 preprocessing = 1:2;
