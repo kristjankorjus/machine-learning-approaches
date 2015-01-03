@@ -28,5 +28,8 @@ for i_data = 1:k_fold1
     classes(data(train_id,:)), data(test_id),best_hyper_parameters);
 end
 
+% At the moment % of correct
+pvalue = correct/size(data,1);
+
 end
 

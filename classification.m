@@ -8,18 +8,43 @@ function [ num_correct ] = classification( data_train, classes_train, ...
 
 % If PCA, do PCA
 if parameters(1) == 2
+  % Concatenate data
+  data = [data_train; data_test];
   
+  % Performing PCA
+  [~, score, eigen] = princomp(data,'econ');
+
+  % Calculating cumulative variance
+  cum_eigen = cumsum(eigen)/sum(eigen);
+
+  % Choosing the number of dimensions by cumulative variance
+  max_id = find(cum_eigen > 0.7,1);
+
+  % Data after the PCA transformation
+  num_train = length(data_train);
+  data_train = score(1:num_train, 1:max_id);
+  data_test = score(num_train+1:end, 1:max_id);
 end
 
 % Model
 if parameters(2) == 1
-  % Linear SVM
+  % Train and predict with the Naive Bayes classifier
+  model = NaiveBayes.fit(data_train,classes_train);
+  predictions = model.predict(data_test);
+  
+  % Number of correct classifications
+  cmat = confusionmat(classes_test,predictions);
+  num_correct = trace(cmat);
   
 elseif parameters(2) == 2
-  % Decision t
+  % Train and predict with the 5-NN classifier
+  model = ClassificationKNN.fit(data_train,classes_train,'NumNeighbors',5);
+  predictions = model.predict(data_test);
+  
+  % Number of correct classifications
+  cmat = confusionmat(classes_test,predictions);
+  num_correct = trace(cmat);
 end
-
-% Number of correct
 
 end
 
