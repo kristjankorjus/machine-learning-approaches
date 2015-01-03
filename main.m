@@ -4,10 +4,12 @@
 clear
 clc
 
-%load('data.mat');
-data = rand(1000,5);
-classes = zeros(1000,1);
-classes(1:2:1000) = 1;
+load('data.mat');
+
+% % random
+% data = rand(1000,5);
+% classes = zeros(1000,1);
+% classes(1:2:1000) = 1;
 
 %% Main structure
 
@@ -15,7 +17,7 @@ classes(1:2:1000) = 1;
 n = size(data,1);
 
 % Range
-range = 100:100:1000;
+range = 40:10:289;
 
 % Initialization for p-values
 [pvalue1, pvalue2, pvalue3] = deal(zeros(1,length(range))); 
@@ -28,4 +30,4 @@ for ii = 1:length(range)
   %pvalue3(ii) = pipeline3(data(perm(1:ii),:));
 end
 
-plot(pvalue1)
+plot(range,pvalue1)
