@@ -17,7 +17,7 @@ load('data.mat');
 n = size(data,1);
 
 % Range
-range = 40:10:289;
+range = 20:10:289;
 
 % Initialization for p-values
 [pvalue1, pvalue2, pvalue3] = deal(zeros(1,length(range))); 

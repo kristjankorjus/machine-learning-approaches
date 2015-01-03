@@ -3,10 +3,10 @@ function [ pvalue ] = pipeline1( data, classes )
 %   Detailed explanation goes here
 
 % Cross-validation parameter
-k_fold1 = 2;
+k_fold1 = 10;
 
 % Nested cross-validation
-k_fold2 = 2;
+k_fold2 = 10;
 
 % Random Partitions for the first cross-validation
 partitions = crossvalind('Kfold', size(data,1), k_fold1);
