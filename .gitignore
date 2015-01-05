@@ -4,6 +4,9 @@ dataloader.m
 # Matlab autosave
 *.asv
 
+# Matlab figure
+*.fig
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
