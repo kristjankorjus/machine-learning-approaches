@@ -31,6 +31,8 @@ for ii = 1:length(x)
 end
 
 %% Plotting the results
+
+%% Figure 1
 figure
 
 subplot(2,1,1);
@@ -46,3 +48,22 @@ hold on
 plot(x,results2(2,:),'-g.')
 plot(x,results3(2,:),'-b.')
 title('P-values');
+
+%% Figure 2
+figure
+p = 0.05;
+y = ones(size(x));
+sig1 = results1(2,:) < p;
+sig2 = results2(2,:) < p;
+sig3 = results3(2,:) < p;
+
+hold on
+scatter(x(sig1),y(sig1),'filled','MarkerFaceColor','r','Marker','s')
+scatter(x(sig2),y(sig2)*2,'filled','MarkerFaceColor','g','Marker','s')
+scatter(x(sig3),y(sig3)*3,'filled','MarkerFaceColor','b','Marker','s')
+
+ylim([0.5, 3.5]);
+set(gca,'YTick',1:3);
+set(gca,'YDir','reverse');
+title('Which pipelines gave significant results (p < 0.05) ?')
+
