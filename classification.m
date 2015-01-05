@@ -26,25 +26,25 @@ if parameters(1) == 2
   data_test = score(num_train+1:end, 1:max_id);
 end
 
-% Model
+% Train model
 if parameters(2) == 1
-  % Train and predict with the Naive Bayes classifier
-  model = NaiveBayes.fit(data_train,classes_train);
-  predictions = model.predict(data_test);
   
-  % Number of correct classifications
-  cmat = confusionmat(classes_test,predictions);
-  num_correct = trace(cmat);
+  % Train with the Naive Bayes classifier
+  model = NaiveBayes.fit(data_train,classes_train);
   
 elseif parameters(2) == 2
-  % Train and predict with the 5-NN classifier
-  model = ClassificationKNN.fit(data_train,classes_train,'NumNeighbors',5);
-  predictions = model.predict(data_test);
   
-  % Number of correct classifications
-  cmat = confusionmat(classes_test,predictions);
-  num_correct = trace(cmat);
+  % Train with the 5-NN classifier
+  model = ClassificationKNN.fit(data_train,classes_train,'NumNeighbors',5);
+
 end
+
+% Predict with the model
+predictions = model.predict(data_test);
+  
+% Number of correct classifications
+cmat = confusionmat(classes_test,predictions);
+num_correct = trace(cmat);
 
 end
 

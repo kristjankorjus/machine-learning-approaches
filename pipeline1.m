@@ -1,5 +1,6 @@
-function [ accuracy, pvalue ] = pipeline1( data, classes )
+function [ error_rate, pvalue ] = pipeline1( data, classes )
 %PIPELINE1 Nested-crossvalidation
+%   Result: no hyper-parameters, no-parameters
 %   Uses functions cross_validation and classification
 
 % Cross-validation parameter
@@ -11,7 +12,7 @@ k_fold2 = 10;
 % Size of the data
 n = size(data,1);
 
-% Random Partitions for the first cross-validation
+% Random partitions for the first cross-validation
 partitions = crossvalind('Kfold', n, k_fold1);
 
 % Counting correct classifications
@@ -35,7 +36,7 @@ for ii = 1:k_fold1
 end
 
 % Accuracy
-accuracy = correct / n;
+error_rate = (n-correct) / n;
 
 % p-value
 pvalue = binocdf(n-correct,n,0.5);
