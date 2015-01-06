@@ -11,6 +11,8 @@ load('data_both.mat');
 n = size(data_open,1);
 
 % Random permutation for the data
+% rng(randi(1000,1)+worker_id);
+rng(1+worker_id);
 r = randperm(n);
 data_open = data_open(r,:);
 data_close = data_close(r,:);
