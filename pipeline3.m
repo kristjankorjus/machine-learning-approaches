@@ -6,7 +6,7 @@ function [ error_rate, pvalue ] = pipeline3( data, classes )
 %% Parameters
 
 % Propotion of the leave out
-leave_out = 0.3;
+leave_out = 0.5;
 
 % Cross-validation parameter
 k_fold = 10;

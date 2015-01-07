@@ -1,6 +1,6 @@
-function main( worker_id )
+function main( x, worker_id )
 %MAIN running the main structure in parallel
-%   
+%  Range x = 20:4:140
 
 %% Load data
 load('data_both.mat');
@@ -27,9 +27,6 @@ classes(2:2:289) = 1;
 
 %% Main structure
 
-% Range
-x = 20:2:100;
-
 % Initialization for p-values
 results = zeros(3,2,length(x)); 
 
@@ -39,10 +36,11 @@ for ii = 1:length(x)
   [results(1, 1, ii), results(1, 2, ii)] = pipeline1(data(1:jj,:), classes(1:jj));
   [results(2, 1, ii), results(2, 2, ii)] = pipeline2(data(1:jj,:), classes(1:jj));
   [results(3, 1, ii), results(3, 2, ii)] = pipeline3(data(1:jj,:), classes(1:jj));
+  fprintf('Finished %d loop out of %d (ID: %d)\n',ii, length(x), worker_id);
 end
 
 %% Plot it
 %plot_single_run(x, results);
 
 %% Saving the results
-save(['results', num2str(worker_id), '.mat'], 'results');
+save(['results', num2str(worker_id), '.mat'], 'results', 'x');

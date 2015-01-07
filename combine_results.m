@@ -12,6 +12,6 @@ for ii = 0:number_of_workers-1
   results_all(:,:,:,ii+1) = results;
 end
 
-save('results_all.mat','results_all');
+save('results_all.mat','results_all','x');
 
 end

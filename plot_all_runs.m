@@ -13,7 +13,7 @@ for ii = 1:2
   figure
   hold on
   for i_pipeline = 1:3
-    values = squeeze(results_all(i_pipeline,1,:,:));
+    values = squeeze(results_all(i_pipeline,ii,:,:));
     y = mean(values,2);
     e = std(values,1,2);
     errorbar(x, y,e,options{i_pipeline})
