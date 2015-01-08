@@ -8,7 +8,7 @@ dataloader.m
 *.fig
 
 # Matlab results
-result*.mat
+*result*.mat
 
 # Windows image file caches
 Thumbs.db
