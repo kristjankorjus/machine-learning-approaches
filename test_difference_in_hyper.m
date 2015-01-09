@@ -47,10 +47,17 @@ end
 save('test1_results.mat','test1_results');
 
 %% Plotting
-% load('test1_results.mat');
-% t = mean(test1_results,3);
-% figure
-% hold all
-% for ii = 1:4
-%   plot(t(ii,:))
-% end
+load('test1_results.mat');
+values = test1_results/100;
+options = {'--r.','--g.','--b.','--k.'};
+figure
+hold all
+for ii = 1:4
+  y = squeeze(mean(values(ii,:,:),3));
+  e = std(values(ii,:,:),1,3);
+  errorbar(x([1,20,41]), y([1,20,41]), e([1,20,41]),options{ii})
+end
+title('Avegare correct rate of 100 runs.');
+xlabel('Train data size');
+ylabel('Correctly calssified 100 subjects');
+ylim([0.6,0.8]);
