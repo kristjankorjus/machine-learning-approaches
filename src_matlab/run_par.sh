@@ -8,4 +8,4 @@
 
 srun ./wrapper1.sh
 
-sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "combine_results(50)"
+sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "combine_results(50,'NAME')"

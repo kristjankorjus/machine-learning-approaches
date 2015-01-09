@@ -1,9 +1,9 @@
-function main( x, worker_id )
+function main( x, worker_id, name_of_the_experiment )
 %MAIN running the main structure in parallel
 %  Range x = 20:4:140
 
 %% Load data
-load('data_both.mat');
+load('../data/data_both.mat');
 
 %% Randomize and construct data
 
@@ -43,4 +43,8 @@ end
 %plot_single_run(x, results);
 
 %% Saving the results
-save(['results', num2str(worker_id), '.mat'], 'results', 'x');
+if ~exist(['../results/',name_of_the_experiment],'dir')
+  mkdir(['../results/',name_of_the_experiment])
+end
+
+save(['../results/', name_of_the_experiment, '/results', num2str(worker_id), '.mat'], 'results', 'x');

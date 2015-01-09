@@ -40,7 +40,7 @@ correct = classification(data_train, ...
 % Size of the test
 n = n - n_train;
 
-% Accuracy
+% Error rate
 error_rate = (n - correct) / n;
 
 % p-value

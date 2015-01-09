@@ -1,4 +1,4 @@
-function plot_all_runs( x, results_all )
+function plot_all_runs( x, results_all, p)
 %PLOT_ALL_RUNS Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -26,7 +26,6 @@ end
 % Figure 3: Propotion of significant results
 
 figure
-p = 0.05;
 options = {'-r.','-g.','-b.'};
 hold on
 

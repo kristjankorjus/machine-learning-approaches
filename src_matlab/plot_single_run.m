@@ -1,4 +1,4 @@
-function plot_single_run( x, results )
+function plot_single_run( x, results, p)
 %PLOT_SINGLE_RUN Plotting the results
 %   
 
@@ -24,7 +24,6 @@ title('P-values');
 
 % Figure 2
 figure
-p = 0.05;
 y = ones(size(x));
 sig1 = squeeze(results(1, 2, :)) < p;
 sig2 = squeeze(results(2, 2, :)) < p;
@@ -39,7 +38,6 @@ ylim([0.5, 3.5]);
 set(gca,'YTick',1:3);
 set(gca,'YDir','reverse');
 title('Which pipelines gave significant results (p < 0.05) ?')
-
 
 end
 
