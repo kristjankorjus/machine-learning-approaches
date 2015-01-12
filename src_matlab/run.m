@@ -1,14 +1,18 @@
+% Settings
+x = 16:4:20;
+name_of_the_experiment = 'test3_eyes';
+%location_of_data = '../data/data_eyes_open_close.mat';
+location_of_data = '../data/data_eyes.mat';
+
 % Run experiment once
-x = 20:4:26;
-name_of_the_experiment = 'test2';
-main(x, 0, name_of_the_experiment);
+main(x, 0, name_of_the_experiment, location_of_data);
 
 % Plot a single run
 load(['../results/',name_of_the_experiment,'/results0.mat']);
 plot_single_run(x, results, 0.01);
 
 % Run another experiment
-main(x, 1, name_of_the_experiment);
+main(x, 1, name_of_the_experiment, location_of_data);
 
 % Combine the results
 combine_results(2, name_of_the_experiment);

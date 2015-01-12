@@ -32,22 +32,30 @@ end
 if hyper_parameters(2) == 1
   
   % Train with the Naive Bayes classifier
-  model = NaiveBayes.fit(data_train, classes_train);
+  model = svmtrain(data_train, classes_train);
+  
+  % Predict with the model
+  predictions = svmclassify(model, data_test);
   
 elseif hyper_parameters(2) == 2
   
-  % Train with the 5-NN classifier
+  % Train with the 1-NN classifier
   model = ClassificationKNN.fit(data_train, classes_train, ...
-    'NumNeighbors',5);
-
+    'NumNeighbors',1);
+  
+  % Predict with the model
+  predictions = model.predict(data_test);
 end
-
-% Predict with the model
-predictions = model.predict(data_test);
   
 % Number of correct classifications
-cmat = confusionmat(classes_test, predictions);
-num_correct = trace(cmat);
+% Empty can happen if total dataset size is <20
+if isempty(classes_test)
+  num_correct = 0;
+else
+  cmat = confusionmat(classes_test, predictions);
+  num_correct = trace(cmat);
+end
+
 
 end
 

@@ -1,5 +1,5 @@
-# Data loader
-dataloader.m
+# Do not add data pre-processing stuff
+data_original/
 
 # Matlab autosave
 *.asv
