@@ -50,16 +50,16 @@ for ii = 1:k_fold2
   train_id = ~test_id;
   
   % Combining the data and classes
-  data_train_temp = [data_train; data_test(train_id,:)];
-  classes_train_temp = [classes_train; classes_test(train_id,:)];
+  data_train_combined = [data_train; data_test(train_id,:)];
+  classes_train_combined = [classes_train; classes_test(train_id,:)];
   
   % Combining the classes
   data_test_temp = data_test(test_id,:);
   classes_test_temp = classes_test(test_id, :);
   
   % Classifying the data
-  correct = correct + classification(data_train_temp, ...
-    classes_train_temp, data_test_temp, classes_test_temp, ...
+  correct = correct + classification(data_train_combined, ...
+    classes_train_combined, data_test_temp, classes_test_temp, ...
     best_hyper_parameters);
 end
 
@@ -71,7 +71,7 @@ n = n - n_train;
 error_rate = (n - correct) / n;
 
 % p-value
-pvalue = binocdf(n-correct,n,0.5);
+pvalue = binocdf(n - correct, n, 0.5);
 
 end
 

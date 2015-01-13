@@ -31,7 +31,7 @@ end
 % Train model
 if hyper_parameters(2) == 1
   
-  % Train with the Naive Bayes classifier
+  % Train with the SVM classifier
   model = svmtrain(data_train, classes_train);
   
   % Predict with the model

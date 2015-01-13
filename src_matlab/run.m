@@ -1,6 +1,6 @@
 % Settings
 x = 16:4:20;
-name_of_the_experiment = 'test3_eyes';
+name_of_the_experiment = 'test_raul';
 %location_of_data = '../data/data_eyes_open_close.mat';
 location_of_data = '../data/data_eyes.mat';
 

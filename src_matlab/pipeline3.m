@@ -44,7 +44,7 @@ n = n - n_train;
 error_rate = (n - correct) / n;
 
 % p-value
-pvalue = binocdf(n-correct,n,0.5);
+pvalue = binocdf(n - correct, n, 0.5);
 
 end
 
