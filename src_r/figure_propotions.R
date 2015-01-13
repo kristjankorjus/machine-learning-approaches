@@ -1,5 +1,8 @@
 figure_propotions <- function(x, results, p, save_path){
   
+  library("ggplot2")
+  library("reshape2")
+  
   # Finding all the values below given p-value
   p_values <- results[,2,,] < p
   
@@ -22,5 +25,6 @@ figure_propotions <- function(x, results, p, save_path){
     ggtitle(paste("Propotion of runs which gave significant results (p < ", p, ")", sep=""))
   
   # Save pdf
+  dir.create(file.path(save_path))
   ggsave(paste(save_path, "figure_propoption_of_results.pdf", sep=""))
 }

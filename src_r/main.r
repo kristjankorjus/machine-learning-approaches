@@ -1,19 +1,16 @@
-rm(list=ls())
-
+main <- function(folder_name){
 
 # Load data
 
 source("load_data.r")
-out <- load_data("../results/test1_mnist/results_all.mat")
+out <- load_data(paste("../results/", folder_name, "/results_all.mat", sep = ""))
 results <- out[[1]]
 x <- out[[2]]
-rm('out', 'load_data')
 
 
 # Figure 1
 
 source("figure_propotions.r")
-figure_propotions(x, results, 0.001, "../figures/test1_mnist/")
+figure_propotions(x, results, 0.001, paste("../figures/", folder_name, "/", sep = ""))
 
-
-# Figure 2 and 3
+}
