@@ -1,4 +1,4 @@
-main <- function(folder_name){
+main <- function(folder_name, p){
 
 # Load data
 
@@ -11,6 +11,6 @@ x <- out[[2]]
 # Figure 1
 
 source("figure_propotions.r")
-figure_propotions(x, results, 0.001, paste("../figures/", folder_name, "/", sep = ""))
+figure_propotions(x, results, p, paste("../figures/", folder_name, "/", sep = ""))
 
 }
