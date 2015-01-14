@@ -44,7 +44,7 @@ end
 
 %% Saving the results
 if ~exist(['../results/',name_of_the_experiment],'dir')
-  mkdir(['../results/',name_of_the_experiment])
+  mkdir(['../results/',name_of_the_experiment]);
 end
 
 save(['../results/', name_of_the_experiment, '/results', num2str(worker_id), '.mat'], 'results', 'x');
