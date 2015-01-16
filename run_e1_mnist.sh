@@ -8,11 +8,11 @@
 #SBATCH --mail-type=END
 #SBATCH --mail-user=korjus@gmail.com
 
-export experiment_name="e1_eyes"
+export experiment_name="e1_mnist"
 export number_of_runs=2
 export total_number_of_runs=100
-export data_location="../data/data_eyes.mat"
-export x_values="20:2:150"
+export data_location="../data/data_mnist.mat"
+export x_values="20:2:80"
 export p_value=0.01
 
 srun ./wrapper1.sh 
