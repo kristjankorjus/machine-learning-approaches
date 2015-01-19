@@ -1,5 +1,6 @@
 # Do not add data pre-processing stuff
 data_original/
+figures/
 
 # Matlab autosave
 *.asv

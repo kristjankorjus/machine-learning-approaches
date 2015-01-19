@@ -1,12 +1,9 @@
-function [ error_rate, pvalue ] = pipeline2( data, classes )
+function [ error_rate, pvalue ] = pipeline2( data, classes, leave_out )
 %PIPELINE2 Cross-validation + cross-testing
 %   Result: hyper-parameters but no parameters
 %   Uses functions cross_validation and classification
 
 %% Parameters
-
-% Propotion of the leave out
-leave_out = 0.5;
 
 % Cross-validation parameter
 k_fold1 = 10;

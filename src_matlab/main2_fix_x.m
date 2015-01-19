@@ -1,4 +1,4 @@
-function main( data_location, experiment_name, x, worker_id, n_runs )
+function main2_fix_x( data_location, experiment_name, x, worker_id, n_runs )
 %MAIN running the main structure in parallel
 %  Range x = 20:4:140
 
@@ -6,6 +6,9 @@ fprintf(['\n\nStart experiment: ', experiment_name, '\n\n']);
 
 %% Load data
 load(data_location);
+
+% Leave out parameter
+leave_out = 5:5:80;
 
 % Maximum number of samples
 n = size(data_class0, 1);
@@ -32,17 +35,17 @@ for i_run = 0:n_runs-1
   %% Main structure
 
   % Initialization for p-values
-  results = zeros(3,2,length(x)); 
+  results = zeros(3,2,length(leave_out)); 
 
   % Main loop
-  for ii = 1:length(x)
-    jj = x(ii);
-    [results(1, 1, ii), results(1, 2, ii)] = pipeline1(data(1:jj,:),...
-      classes(1:jj));
-    [results(2, 1, ii), results(2, 2, ii)] = pipeline2(data(1:jj,:), ...
-      classes(1:jj), 0.5);
-    [results(3, 1, ii), results(3, 2, ii)] = pipeline3(data(1:jj,:), ...
-      classes(1:jj), 0.5);
+  for ii = 1:length(leave_out)
+    jj = leave_out(ii);
+    %[results(1, 1, ii), results(1, 2, ii)] = pipeline1(data(1:jj,:),...
+    %  classes(1:jj));
+    [results(2, 1, ii), results(2, 2, ii)] = pipeline2(data(1:x,:), ...
+      classes(1:x), jj);
+    [results(3, 1, ii), results(3, 2, ii)] = pipeline3(data(1:x,:), ...
+      classes(1:x), jj);
   end
   
   fprintf('Finished %d run out of %d (ID: %d)\n',i_run+1, n_runs, ...
@@ -54,5 +57,5 @@ for i_run = 0:n_runs-1
   end
 
   save(['../results/', experiment_name, '/results', ...
-    num2str(worker_id*n_runs + i_run), '.mat'], 'results', 'x');
+    num2str(worker_id*n_runs + i_run), '.mat'], 'results', 'x', 'leave_out');
 end

@@ -1,12 +1,9 @@
-function [ error_rate, pvalue ] = pipeline3( data, classes )
+function [ error_rate, pvalue ] = pipeline3( data, classes, leave_out )
 %PIPELINE3 Cross-validation + final test
 %   Result: hyper-parameters and parameters
 %   Uses functions cross_validation and classification
 
 %% Parameters
-
-% Propotion of the leave out
-leave_out = 0.5;
 
 % Cross-validation parameter
 k_fold = 10;
