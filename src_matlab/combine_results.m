@@ -12,6 +12,12 @@ for ii = 0:number_of_workers-1
   results_all(:,:,:,ii+1) = results;
 end
 
-save(['../results/',name_of_the_experiment,'/results_all.mat'],'results_all','x');
-
+% Save variables
+if exist('leave_out', 'var') == 1
+  save(['../results/',name_of_the_experiment,'/results_all.mat'],...
+    'results_all','x','leave_out');
+else
+  save(['../results/',name_of_the_experiment,'/results_all.mat'],...
+    'results_all','x');
+end
 end

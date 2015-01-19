@@ -7,12 +7,13 @@ figure_propotions <- function(x, results, p, save_path){
   # Finding all the values below given p-value
   p_values <- results[,2,,] < p
   
+  
   # Propotion of then
   sig_values <- t(apply(p_values,c(1,2),sum)/dim(results)[4])
   
   # Saving stuff into data frame
   sig_frame <- data.frame(sig_values,t(x))
-  names(sig_frame) <- c("Pipeline 1 (none)", "Pipeline 2 (HP)", "Pipeline 3 (HP + P)", "size")
+  names(sig_frame) <- c("Pipeline 2 (HP)", "Pipeline 3 (HP + P)", "size")
   
   # Melting the data into long format
   data_long <- melt(sig_frame,id.vars = "size",variable.name = "Pipelines", value.name = "pipeline_value")
@@ -22,7 +23,7 @@ figure_propotions <- function(x, results, p, save_path){
   fig = ggplot(data=data_long, aes(x=size, y=pipeline_value, colour=Pipelines)) + 
     geom_path(alpha = 0.5, size = 1) + 
     geom_point(size=2) + 
-    xlab("\nSize of the data set") +
+    xlab("\nSize of the leave out set") +
     ylab("Propoption of  significant results\n") +
     ggtitle(paste("Propotion of runs which gave significant results (p < ", p, ")\n", sep="")) +
     theme(legend.justification=c(1,0), legend.position=c(1,0)) + 
@@ -30,5 +31,5 @@ figure_propotions <- function(x, results, p, save_path){
   
   # Save pdf
   dir.create(file.path(save_path))
-  ggsave(paste(save_path, "figure_propoption_of_results.pdf", sep=""),fig, width=11, height=7)
+  ggsave(paste(save_path, "figure_propoption_of_results_leave_out.pdf", sep=""),fig, width=11, height=7)
 }
