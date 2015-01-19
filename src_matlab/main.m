@@ -2,6 +2,8 @@ function main( data_location, experiment_name, x, worker_id, n_runs )
 %MAIN running the main structure in parallel
 %  Range x = 20:4:140
 
+fprintf(['\n\nStart experiment: ', experiment_name, '\n\n']);
+
 %% Load data
 load(data_location);
 
@@ -41,9 +43,10 @@ for i_run = 0:n_runs-1
       classes(1:jj));
     [results(3, 1, ii), results(3, 2, ii)] = pipeline3(data(1:jj,:), ...
       classes(1:jj));
-    fprintf('Finished %d loop out of %d (ID: %d)\n',ii, length(x), ...
-      worker_id);
   end
+  
+  fprintf('Finished %d run out of %d (ID: %d)\n',i_run+1, n_runs, ...
+      worker_id);
 
   %% Saving the results
   if ~exist(['../results/',experiment_name],'dir')
