@@ -10,11 +10,12 @@ pathname <- file.path(path, location_of_results)
 data <- readMat(pathname)
 results <- data[[1]]
 x <- data[[2]]
+if(length(data)==3){
+  leave_out <- data[[3]]
+  return(list(results,x,leave_out))
+} else {
+  return(list(results,x))
+}
 
-# Clear variables
-rm('data','pathname','path')
-
-# Return results and x
-return(list(results,x))
 }
 

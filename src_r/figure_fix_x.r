@@ -1,4 +1,4 @@
-figure_propotions <- function(x, results, p, save_path){
+figure_fix_x <- function(leave_out, x, results, p, save_path){
   
   library("ggplot2")
   library("reshape2")
@@ -12,7 +12,7 @@ figure_propotions <- function(x, results, p, save_path){
   sig_values <- t(apply(p_values,c(1,2),sum)/dim(results)[4])
   
   # Saving stuff into data frame
-  sig_frame <- data.frame(sig_values,t(x))
+  sig_frame <- data.frame(sig_values,t(leave_out))
   names(sig_frame) <- c("Pipeline 2 (HP)", "Pipeline 3 (HP + P)", "size")
   
   # Melting the data into long format

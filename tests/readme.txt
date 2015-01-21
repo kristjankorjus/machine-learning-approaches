@@ -1,0 +1,1 @@
+files should be copied to one folder up

@@ -11,8 +11,8 @@
 export number_of_runs=2
 export total_number_of_runs=100
 
-export experiment_name="e1_eyes"
-export data_location="../data/data_eyes.mat"
+export experiment_name="e1_eeg"
+export data_location="../data/data_eeg.mat"
 export x_values="20:2:150"
 export p_value=0.01
 
