@@ -10,7 +10,7 @@ x <- out[[2]]
 
 # Figure 1
 
-source("figure_propotions.r")
-figure_propotions(x, results, p, paste("../figures/", folder_name, "/", sep = ""))
+source("figures.r")
+figures(x, results, p, paste("../figures/", folder_name, "/", sep = ""))
 
 }
