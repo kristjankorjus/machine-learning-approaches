@@ -12,6 +12,6 @@ leave_out <- out[[3]]
 # Figure 1
 
 source("figures_fix_x.r")
-figures_fix_x(leave_out, x, results, p, paste("../figures/", folder_name, "/", sep = ""))
+figures_fix_x(leave_out, x, results, p, paste("../figures/", folder_name, "/", sep = ""), folder_name)
 
 }

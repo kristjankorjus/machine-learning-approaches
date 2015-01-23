@@ -1,4 +1,4 @@
-figures_fix_x <- function(leave_out, x, results, p, save_path){
+figures_fix_x <- function(leave_out, x, results, p, save_path, folder_name){
   
   library("ggplot2")
   library("reshape2")
@@ -48,14 +48,14 @@ figures_fix_x <- function(leave_out, x, results, p, save_path){
       
       fig = fig + 
         ylab("Mean accuracy\n") +
-        ggtitle("Mean accuracy of runs\n")
-      ggsave(paste(save_path, "figure_fix_x_mean_accuracy.pdf", sep=""),fig, width=11, height=7)
+        ggtitle(paste("Mean accuracy of runs (size = ", x, ")\n", sep=""))
+      ggsave(paste(save_path, "fig_", folder_name, "_accuracy_size_", x, ".pdf", sep=""),fig, width=11, height=7)
       
     } else {
       fig = fig +
         ylab("Propoption of  significant results\n") +
-        ggtitle(paste("Propotion of runs which gave significant results (p < ", p, ")\n", sep=""))
-      ggsave(paste(save_path, "figure_fix_x_propoption_of_sig_results.pdf", sep=""),fig, width=11, height=7)
+        ggtitle(paste("Propotion of runs which gave significant results (p < ", p, ", size = ", x, ")\n", sep=""))
+      ggsave(paste(save_path, "fig_", folder_name, "_sig_", p, ".pdf", sep=""),fig, width=11, height=7)
     }
   }
 }

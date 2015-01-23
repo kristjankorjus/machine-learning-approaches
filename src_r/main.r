@@ -11,6 +11,6 @@ x <- out[[2]]
 # Figure 1
 
 source("figures.r")
-figures(x, results, p, paste("../figures/", folder_name, "/", sep = ""))
+figures(x, results, p, paste("../figures/", folder_name, "/", sep = ""), folder_name)
 
 }
