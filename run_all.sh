@@ -32,7 +32,7 @@ sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd
 sh /storage/software/R-3.1.1/bin/R -q -e "setwd('src_r'); source('main.r'); main('$experiment_name',$p_value);"
 
 export experiment_name="eeg_fix"
-export fix_x=70
+export fix_x=100
 
 srun ./wrapper2.sh 
 sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name'); exit;"
@@ -53,7 +53,7 @@ sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd
 sh /storage/software/R-3.1.1/bin/R -q -e "setwd('src_r'); source('main.r'); main('$experiment_name',$p_value);"
 
 export experiment_name="fmri_fix"
-export fix_x=30
+export fix_x=50
 
 srun ./wrapper2.sh 
 sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name'); exit;"
@@ -66,7 +66,7 @@ sh /storage/software/R-3.1.1/bin/R -q -e "setwd('src_r'); source('main2_fix_x.r'
 
 export experiment_name="spikes"
 export data_location="../data/data_spikes.mat"
-export x_values="20:5:100"
+export x_values="20:5:150"
 export p_value=0.01
 
 srun ./wrapper1.sh 
@@ -74,7 +74,7 @@ sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd
 sh /storage/software/R-3.1.1/bin/R -q -e "setwd('src_r'); source('main.r'); main('$experiment_name',$p_value);"
 
 export experiment_name="spikes_fix"
-export fix_x=30
+export fix_x=100
 
 srun ./wrapper2.sh 
 sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name'); exit;"
