@@ -32,12 +32,17 @@ end
 if hyper_parameters(2) == 1
   
   % Train with the SVM classifier
-  %model = svmtrain(data_train, classes_train, 'kktviolationlevel', 0.1);
-  model = ClassificationTree.fit(data_train, classes_train);
+  try
+    model = svmtrain(data_train, classes_train);
+  catch
+    model = svmtrain(data_train, classes_train, 'kktviolationlevel', 0.2);
+  end
+  
+  %model = ClassificationTree.fit(data_train, classes_train);
   
   % Predict with the model
-  % predictions = svmclassify(model, data_test);
-  predictions = model.predict(data_test);
+  predictions = svmclassify(model, data_test);
+  %predictions = model.predict(data_test);
   
 elseif hyper_parameters(2) == 2
   
