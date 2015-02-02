@@ -1,4 +1,4 @@
-main <- function(folder_name, p){
+main <- function(folder_name, p, data_title){
 
 # Load data
 
@@ -11,6 +11,6 @@ x <- out[[2]]
 # Figure 1
 
 source("figures.r")
-figures(x, results, p, paste("../figures/", folder_name, "/", sep = ""), folder_name)
+figures(x, results, p, paste("../figures/", folder_name, "/", sep = ""), folder_name, data_title)
 
 }

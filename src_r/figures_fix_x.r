@@ -1,4 +1,4 @@
-figures_fix_x <- function(leave_out, x, results, p, save_path, folder_name){
+figures_fix_x <- function(leave_out, x, results, p, save_path, folder_name, title){
   
   library("ggplot2")
   library("reshape2")
@@ -34,11 +34,13 @@ figures_fix_x <- function(leave_out, x, results, p, save_path, folder_name){
     # ggplot
     theme_set(theme_bw(base_size = 14))
     fig = ggplot(data=data_long, aes(x=size, y=pipeline_value, colour=Pipelines)) + 
+      scale_colour_manual(values=c("#00BA38", "#619CFF")) +
       geom_path(alpha = 0.5, size = 1) + 
       geom_point(size=2) + 
       theme(legend.justification=c(1,0), legend.position=c(1,0)) + 
       theme(legend.key = element_blank()) +
-      xlab("\nSize of the leave out set")
+      xlab("\nSize of the leave out set") +
+      scale_x_reverse()
     
     # Create dir
     dir.create(file.path(save_path))
@@ -48,13 +50,13 @@ figures_fix_x <- function(leave_out, x, results, p, save_path, folder_name){
       
       fig = fig + 
         ylab("Mean accuracy\n") +
-        ggtitle(paste("Mean accuracy of runs (size = ", x, ")\n", sep=""))
+        ggtitle(paste("Mean accuracy of runs (size = ", x, ", dataset = ", title, ")\n", sep=""))
       ggsave(paste(save_path, "fig_", folder_name, "_accuracy_size_", x, ".pdf", sep=""),fig, width=11, height=7)
       
     } else {
       fig = fig +
         ylab("Propoption of  significant results\n") +
-        ggtitle(paste("Propotion of runs which gave significant results (p < ", p, ", size = ", x, ")\n", sep=""))
+        ggtitle(paste("Propotion of runs which gave significant results (p < ", p, ", size = ", x, ", dataset = ", title, ")\n", sep=""))
       ggsave(paste(save_path, "fig_", folder_name, "_sig_", p, ".pdf", sep=""),fig, width=11, height=7)
     }
   }

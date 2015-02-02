@@ -1,4 +1,4 @@
-figures <- function(x, results, p, save_path, folder_name){
+figures <- function(x, results, p, save_path, folder_name, title){
   
   library("ggplot2")
   library("reshape2")
@@ -34,6 +34,7 @@ figures <- function(x, results, p, save_path, folder_name){
     # ggplot
     theme_set(theme_bw(base_size = 14))
     fig = ggplot(data=data_long, aes(x=size, y=pipeline_value, colour=Pipelines)) + 
+      scale_colour_manual(values=c("#F8766D", "#00BA38", "#619CFF")) +
       geom_path(alpha = 0.5, size = 1) + 
       geom_point(size=2) + 
       theme(legend.justification=c(1,0), legend.position=c(1,0)) + 
@@ -48,13 +49,13 @@ figures <- function(x, results, p, save_path, folder_name){
       
       fig = fig + 
         ylab("Mean accuracy\n") +
-        ggtitle("Mean accuracy of runs\n")
+        ggtitle(paste("Mean accuracy of runs (dataset = ", title, ")\n", sep=""))
       ggsave(paste(save_path, "fig_", folder_name, "_accuracy.pdf", sep=""),fig, width=11, height=7)
       
     } else {
       fig = fig +
         ylab("Propoption of  significant results\n") +
-        ggtitle(paste("Propotion of runs which gave significant results (p < ", p, ")\n", sep=""))
+        ggtitle(paste("Propotion of runs which gave significant results (p < ", p, ", dataset = ", title, ")\n", sep=""))
       ggsave(paste(save_path, "fig_", folder_name, "_sig_", p,".pdf", sep=""),fig, width=11, height=7)
     }
   }

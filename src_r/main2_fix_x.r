@@ -1,4 +1,4 @@
-main2_fix_x <- function(folder_name, p){
+main2_fix_x <- function(folder_name, p, data_title){
 
 # Load data
 
@@ -12,6 +12,6 @@ leave_out <- out[[3]]
 # Figure 1
 
 source("figures_fix_x.r")
-figures_fix_x(leave_out, x, results, p, paste("../figures/", folder_name, "/", sep = ""), folder_name)
+figures_fix_x(leave_out, x, results, p, paste("../figures/", folder_name, "/", sep = ""), folder_name, data_title)
 
 }

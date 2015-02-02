@@ -35,7 +35,10 @@ if hyper_parameters(2) == 1
   try
     model = svmtrain(data_train, classes_train);
   catch
-    model = svmtrain(data_train, classes_train, 'kktviolationlevel', 0.2);
+    % If does not converge, helping it by changing many
+    % affecting parameters a bit
+    model = svmtrain(data_train, classes_train, 'kktviolationlevel', ...
+      0.3, 'tolkkt', 0.01, 'boxconstraint', 0.1);
   end
   
   %model = ClassificationTree.fit(data_train, classes_train);
