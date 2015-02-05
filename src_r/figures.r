@@ -26,7 +26,7 @@ figures <- function(x, results, p, save_path, folder_name, title){
     
     # Saving stuff into data frame
     data_frame <- data.frame(sig_values,t(x))
-    names(data_frame) <- c("Pipeline 1 (None)", "Pipeline 2 (HP)", "Pipeline 3 (HP + P)", "size")
+    names(data_frame) <- c("Pipeline 3 (None)", "Pipeline 2 (HP)", "Pipeline 1 (HP + P)", "size")
     
     # Melting the data into long format
     data_long <- melt(data_frame,id.vars = "size",variable.name = "Pipelines", value.name = "pipeline_value")
