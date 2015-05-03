@@ -32,7 +32,7 @@ figures_fix_x <- function(leave_out, x, results, p, save_path, folder_name, titl
     data_long <- melt(data_frame,id.vars = "size",variable.name = "Pipelines", value.name = "pipeline_value")
     
     # ggplot
-    theme_set(theme_bw(base_size = 20))
+    theme_set(theme_bw(base_size = 14))
     fig = ggplot(data=data_long, aes(x=size, y=pipeline_value, colour=Pipelines)) + 
       scale_colour_manual(values=c("#00BA38", "#619CFF")) +
       geom_path(alpha = 0.5, size = 1) + 
@@ -50,13 +50,13 @@ figures_fix_x <- function(leave_out, x, results, p, save_path, folder_name, titl
       
       fig = fig + 
         ylab("Mean accuracy\n") +
-        ggtitle(paste("Mean accuracy (size = ", x, ", dataset = ", title, ")\n", sep=""))
+        ggtitle(paste("Mean accuracy of runs (size = ", x, ", dataset = ", title, ")\n", sep=""))
       ggsave(paste(save_path, "fig_", folder_name, "_accuracy_size_", x, ".pdf", sep=""),fig, width=11, height=7)
       
     } else {
       fig = fig +
-        ylab("Propoption of significant results\n") +
-        ggtitle(paste("Significant results (p < ", p, ", size = ", x, ", dataset = ", title, ")\n", sep=""))
+        ylab("Propoption of  significant results\n") +
+        ggtitle(paste("Propotion of runs which gave significant results (p < ", p, ", size = ", x, ", dataset = ", title, ")\n", sep=""))
       ggsave(paste(save_path, "fig_", folder_name, "_sig_", p, ".pdf", sep=""),fig, width=11, height=7)
     }
   }
