@@ -26,7 +26,7 @@ figures_fix_x <- function(leave_out, x, results, p, save_path, folder_name, titl
   
     # Saving stuff into data frame
     data_frame <- data.frame(sig_values,t(leave_out))
-    names(data_frame) <- c("Pipeline 2 (HP)", "Pipeline 1 (HP + P)", "size")
+    names(data_frame) <- c("Leaveout set", "size")
     
     # Melting the data into long format
     data_long <- melt(data_frame,id.vars = "size",variable.name = "Pipelines", value.name = "pipeline_value")
@@ -34,7 +34,7 @@ figures_fix_x <- function(leave_out, x, results, p, save_path, folder_name, titl
     # ggplot
     theme_set(theme_bw(base_size = 20))
     fig = ggplot(data=data_long, aes(x=size, y=pipeline_value, colour=Pipelines)) + 
-      scale_colour_manual(values=c("#00BA38", "#619CFF")) +
+      scale_colour_manual(values=c(#619CFF")) +
       geom_path(alpha = 0.5, size = 1) + 
       geom_point(size=2) + 
       theme(legend.justification=c(1,0), legend.position=c(1,0)) + 
