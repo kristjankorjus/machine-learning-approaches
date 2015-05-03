@@ -15,7 +15,7 @@ export total_number_of_runs=50
 
 # Fixing some parameters for the second experiment
 
-export leave_out="[5:5:85]/100"
+export leave_out="[10:10:90]/100"
 
 
 #
