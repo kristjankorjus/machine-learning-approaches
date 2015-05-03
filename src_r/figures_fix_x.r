@@ -39,8 +39,7 @@ figures_fix_x <- function(leave_out, x, results, p, save_path, folder_name, titl
       geom_point(size=2) + 
       theme(legend.justification=c(1,0), legend.position=c(1,0)) + 
       theme(legend.key = element_blank()) +
-      xlab("\nSize of the leave out set") +
-      scale_x_reverse()
+      xlab("\nSize of the leave out set")
     
     # Create dir
     dir.create(file.path(save_path))
