@@ -32,16 +32,17 @@ for i_run = 0:n_runs-1
   %% Main structure
 
   % Initialization for p-values
-  results = zeros(3,2,length(x)); 
+  results = zeros(2,2,length(x));
+  %results = zeros(3,2,length(x)); 
 
   % Main loop
   for ii = 1:length(x)
     jj = x(ii);
     [results(1, 1, ii), results(1, 2, ii)] = pipeline1(data(1:jj,:),...
       classes(1:jj));
-    [results(2, 1, ii), results(2, 2, ii)] = pipeline2(data(1:jj,:), ...
-      classes(1:jj), 0.5);
-    [results(3, 1, ii), results(3, 2, ii)] = pipeline3(data(1:jj,:), ...
+    %[results(2, 1, ii), results(2, 2, ii)] = pipeline2(data(1:jj,:), ...
+    %  classes(1:jj), 0.5);
+    [results(2, 1, ii), results(3, 2, ii)] = pipeline3(data(1:jj,:), ...
       classes(1:jj), 0.5);
   end
   
