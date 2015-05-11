@@ -11,8 +11,7 @@ figures_fix_x <- function(leave_out, x, results, p, save_path, folder_name, titl
     if (ii==1){
       
       # Mean
-      sig_values <- 1-t(apply(values,c(1,2),mean))
-      
+      sig_values <- 1-t(rowMeans(values))
       
     } else {
       
@@ -20,27 +19,28 @@ figures_fix_x <- function(leave_out, x, results, p, save_path, folder_name, titl
       p_values <- values < p
       
       # Propotion of them
-      sig_values <- t(apply(p_values,c(1,2),sum)/dim(results)[4])
+      sig_values <- t(rowSums(p_values))/dim(values)[2]
       
     }
   
     # Saving stuff into data frame
-    data_frame <- data.frame(sig_values,t(leave_out))
-    names(data_frame) <- c("Leaveout set", "size")
+    sig_values = as.vector(sig_values)
+    leave_out = as.vector(leave_out)
+    data_frame = data.frame(sig_values, leave_out)
     
     # Melting the data into long format
-    data_long <- melt(data_frame,id.vars = "size",variable.name = "Pipelines", value.name = "pipeline_value")
+    #data_long <- melt(data_frame,id.vars = "size",variable.name = "Pipelines", value.name = "pipeline_value")
     
     # ggplot
     theme_set(theme_bw(base_size = 20))
-    fig = ggplot(data=data_long, aes(x=size, y=pipeline_value, colour=Pipelines)) + 
-      scale_colour_manual(values=c(#619CFF")) +
-      geom_path(alpha = 0.5, size = 1) + 
-      geom_point(size=2) + 
+    
+    fig = ggplot(data_frame, aes(x = leave_out, y = sig_values)) + 
+      geom_path(alpha = 0.5, size = 1, colour = "#619CFF") + 
+      geom_point(size=2, colour = "#619CFF") + 
       theme(legend.justification=c(1,0), legend.position=c(1,0)) + 
       theme(legend.key = element_blank()) +
       xlab("\nSize of the leave out set")
-    
+      
     # Create dir
     dir.create(file.path(save_path))
     

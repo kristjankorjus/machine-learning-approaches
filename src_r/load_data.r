@@ -8,8 +8,8 @@ pathname <- file.path(path, location_of_results)
 
 # Read in the results
 data <- readMat(pathname)
-results <- data[[1]]
-x <- data[[2]]
+results <- data[['results.all']]
+x <- data[['x']]
 if(length(data)==3){
   leave_out <- data[[3]]
   return(list(results,x,leave_out))

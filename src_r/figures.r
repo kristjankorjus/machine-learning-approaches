@@ -13,7 +13,6 @@ figures <- function(x, results, p, save_path, folder_name, title){
       # Mean
       sig_values <- 1-t(apply(values,c(1,2),mean))
       
-      
     } else {
       
       # Finding all the values below given p-value
@@ -27,14 +26,16 @@ figures <- function(x, results, p, save_path, folder_name, title){
     # Saving stuff into data frame
     data_frame <- data.frame(sig_values,t(x))
     names(data_frame) <- c("Nested cross-validation", "Leaveout set", "size")
+    print(data_frame)
     
     # Melting the data into long format
     data_long <- melt(data_frame,id.vars = "size",variable.name = "Pipelines", value.name = "pipeline_value")
+    print(data_long)
     
     # ggplot
     theme_set(theme_bw(base_size = 20))
     fig = ggplot(data=data_long, aes(x=size, y=pipeline_value, colour=Pipelines)) + 
-      scale_colour_manual(values=c("#F8766D", "#619CFF)) +
+      scale_colour_manual(values=c("#F8766D", "#619CFF")) +
       geom_path(alpha = 0.5, size = 1) + 
       geom_point(size=2) + 
       theme(legend.justification=c(1,0), legend.position=c(1,0)) + 
