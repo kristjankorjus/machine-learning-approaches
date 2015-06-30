@@ -1,13 +1,12 @@
 cd('src_matlab');
 
-
-experiment_name = 'test1_fix_x';
+experiment_name = 'test_eeg_fix';
 number_of_runs = 2;
 total_number_of_runs = 4;
-data_location = '../data/data_eyes.mat';
-fix_x = 70;
+data_location = '../data/data_eeg.mat';
+fix_x = 50;
 p_value = 0.01;
-leave_out = [10, 40]/100;
+leave_out = [10, 90] / 100;
 
 main2_fix_x( data_location, experiment_name, fix_x, leave_out, ...
   0, number_of_runs )

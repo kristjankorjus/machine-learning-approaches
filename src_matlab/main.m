@@ -9,6 +9,7 @@ load(data_location);
 
 % Maximum number of samples
 n = size(data_class0, 1);
+f = size(data_class0, 2);
 
 % Do many runs
 for i_run = 0:n_runs-1
@@ -22,12 +23,11 @@ for i_run = 0:n_runs-1
   data_class1 = data_class1(r,:);
 
   % Generating the data set
-
-  data = zeros(size(data_class0));
+  data = zeros(n, f);
   data(1:2:n,:) = data_class0(1:2:n,:);
   data(2:2:n,:) = data_class1(2:2:n,:);
-  classes = zeros(289,1);
-  classes(2:2:289) = 1;
+  classes = zeros(n,1);
+  classes(2:2:n) = 1;
 
   %% Main structure
 
