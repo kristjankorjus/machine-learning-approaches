@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH -N 1
+#SBATCH -N 5
 #SBATCH --ntasks-per-node 10
 #SBATCH --cpus-per-task 2
 #SBATCH --mem 7000
@@ -10,8 +10,8 @@
 
 # Fixing some parameters for both of the experiments
 
-export number_of_runs=1
-export total_number_of_runs=10
+export number_of_runs=4
+export total_number_of_runs=200
 
 # Fixing some parameters for the second experiment
 
@@ -30,14 +30,12 @@ export p_value=0.01
 
 srun ./wrapper1.sh 
 sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name'); exit;"
-sh /storage/software/R-3.1.1/bin/R -q -e "setwd('src_r'); source('main.r'); main('$experiment_name',$p_value,'$data_title');"
 
 export experiment_name="eeg_fix"
 export fix_x=50
 
 srun ./wrapper2.sh 
 sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name'); exit;"
-sh /storage/software/R-3.1.1/bin/R -q -e "setwd('src_r'); source('main2_fix_x.r'); main2_fix_x('$experiment_name',$p_value,'$data_title');"
 
 
 #
@@ -52,14 +50,12 @@ export p_value=0.001
 
 srun ./wrapper1.sh 
 sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name'); exit;"
-sh /storage/software/R-3.1.1/bin/R -q -e "setwd('src_r'); source('main.r'); main('$experiment_name',$p_value,'$data_title');"
 
 export experiment_name="fmri_fix"
-export fix_x=30
+export fix_x=40
 
 srun ./wrapper2.sh 
 sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name'); exit;"
-sh /storage/software/R-3.1.1/bin/R -q -e "setwd('src_r'); source('main2_fix_x.r'); main2_fix_x('$experiment_name',$p_value,'$data_title');"
 
 
 #
@@ -74,14 +70,12 @@ export p_value=0.01
 
 srun ./wrapper1.sh 
 sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name'); exit;"
-sh /storage/software/R-3.1.1/bin/R -q -e "setwd('src_r'); source('main.r'); main('$experiment_name',$p_value,'$data_title');"
 
 export experiment_name="spikes_fix"
 export fix_x=100
 
 srun ./wrapper2.sh 
 sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name'); exit;"
-sh /storage/software/R-3.1.1/bin/R -q -e "setwd('src_r'); source('main2_fix_x.r'); main2_fix_x('$experiment_name',$p_value,'$data_title');"
 
 
 #
@@ -96,14 +90,12 @@ export p_value=0.001
 
 srun ./wrapper1.sh 
 sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name'); exit;"
-sh /storage/software/R-3.1.1/bin/R -q -e "setwd('src_r'); source('main.r'); main('$experiment_name',$p_value,'$data_title');"
 
 export experiment_name="mnist_fix"
-export fix_x=26
+export fix_x=36
 
 srun ./wrapper2.sh 
 sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name'); exit;"
-sh /storage/software/R-3.1.1/bin/R -q -e "setwd('src_r'); source('main2_fix_x.r'); main2_fix_x('$experiment_name',$p_value,'$data_title');"
 
 
 #
@@ -118,14 +110,12 @@ export p_value=0.01
 
 srun ./wrapper1.sh 
 sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name'); exit;"
-sh /storage/software/R-3.1.1/bin/R -q -e "setwd('src_r'); source('main.r'); main('$experiment_name',$p_value,'$data_title');"
 
 export experiment_name="gen_fix"
 export fix_x=60
 
 srun ./wrapper2.sh 
 sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name'); exit;"
-sh /storage/software/R-3.1.1/bin/R -q -e "setwd('src_r'); source('main2_fix_x.r'); main2_fix_x('$experiment_name',$p_value,'$data_title');"
 
 
 #
@@ -140,11 +130,9 @@ export p_value=0.05
 
 srun ./wrapper1.sh 
 sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name'); exit;"
-sh /storage/software/R-3.1.1/bin/R -q -e "setwd('src_r'); source('main.r'); main('$experiment_name',$p_value,'$data_title');"
 
 export experiment_name="random_fix"
 export fix_x=60
 
 srun ./wrapper2.sh 
 sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name'); exit;"
-sh /storage/software/R-3.1.1/bin/R -q -e "setwd('src_r'); source('main2_fix_x.r'); main2_fix_x('$experiment_name',$p_value,'$data_title');"

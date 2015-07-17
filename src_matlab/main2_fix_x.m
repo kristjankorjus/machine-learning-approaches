@@ -34,15 +34,14 @@ for i_run = 0:n_runs-1
   %% Main structure
 
   % Initialization for p-values
-  results = zeros(1,2,length(leave_out));
-  %results = zeros(2,2,length(leave_out)); 
+  results = zeros(2,2,length(leave_out)); 
 
   % Main loop
   for ii = 1:length(leave_out)
     jj = leave_out(ii);
-    %[results(1, 1, ii), results(1, 2, ii)] = pipeline2(data(1:x,:), ...
-    %  classes(1:x), jj);
-    [results(1, 1, ii), results(1, 2, ii)] = pipeline3(data(1:x,:), ...
+    [results(1, 1, ii), results(1, 2, ii)] = pipeline2(data(1:x,:), ...
+      classes(1:x), jj);
+    [results(2, 1, ii), results(2, 2, ii)] = pipeline3(data(1:x,:), ...
       classes(1:x), jj);
   end
   
