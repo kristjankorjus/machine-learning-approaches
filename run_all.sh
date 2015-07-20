@@ -8,10 +8,14 @@
 #SBATCH --mail-type=END
 #SBATCH --mail-user=korjus@gmail.com
 
+# Experiment or permutation test?
+
+export perm="true"
+
 # Fixing some parameters for both of the experiments
 
-export number_of_runs=8
-export total_number_of_runs=400
+export number_of_runs=2
+export total_number_of_runs=100
 
 # Fixing some parameters for the second experiment
 
@@ -29,13 +33,13 @@ export x_values="20:20:160"
 export p_value=0.01
 
 srun ./wrapper1.sh 
-sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name'); exit;"
+sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name', $perm); exit;"
 
 export experiment_name="eeg_fix"
 export fix_x=50
 
 srun ./wrapper2.sh 
-sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name'); exit;"
+sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name', $perm); exit;"
 
 
 #
@@ -49,13 +53,13 @@ export x_values="20:40:300"
 export p_value=0.01
 
 srun ./wrapper1.sh 
-sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name'); exit;"
+sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name', $perm); exit;"
 
 export experiment_name="spikes_fix"
 export fix_x=100
 
 srun ./wrapper2.sh 
-sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name'); exit;"
+sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name', $perm); exit;"
 
 
 #
@@ -69,13 +73,13 @@ export x_values="20:40:260"
 export p_value=0.01
 
 srun ./wrapper1.sh 
-sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name'); exit;"
+sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name', $perm); exit;"
 
 export experiment_name="gen_fix"
 export fix_x=100
 
 srun ./wrapper2.sh 
-sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name'); exit;"
+sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name', $perm); exit;"
 
 
 #
@@ -89,10 +93,10 @@ export x_values="20:50:120"
 export p_value=0.05
 
 srun ./wrapper1.sh 
-sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name'); exit;"
+sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name', $perm); exit;"
 
 export experiment_name="random_fix"
 export fix_x=70
 
 srun ./wrapper2.sh 
-sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name'); exit;"
+sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name', $perm); exit;"
