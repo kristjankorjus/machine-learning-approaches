@@ -10,6 +10,7 @@ results_all = zeros([size(results), number_of_workers]);
 for ii = 0:number_of_workers-1
   load(['../results/',name_of_the_experiment,'/results',num2str(ii),'.mat'])
   results_all(:,:,:,ii+1) = results;
+  delete(['../results/',name_of_the_experiment,'/results',num2str(ii),'.mat'])
 end
 
 % Save variables

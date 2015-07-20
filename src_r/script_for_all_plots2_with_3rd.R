@@ -5,20 +5,20 @@ library("reshape2")
 library("ggthemes")
 library("grid")
 library("gridExtra")
+library("scales")
 
-folder_names = c('eeg_fix', 'fmri_fix', 'spikes_fix', 'mnist_fix', 'gen_fix', 'random_fix')
-#folder_names = c('test_eeg_fix', 'test_eeg_fix', 'test_eeg_fix', 'test_eeg_fix', 'test_eeg_fix', 'test_eeg_fix')
-ps = c(0.01, 0.001, 0.01, 0.001, 0.05, 0.05)
-data_titles = c('EEG', 'fMRI', 'Spikes', 'MNIST', 'Generated', 'Random')
+folder_names = c('eeg_fix', 'gen_fix', 'spikes_fix', 'random_fix')
+ps = c(0.01, 0.01, 0.01, 0.01)
+data_titles = c('EEG', 'Generated', 'Spikes', 'Random')
 
 # Load data
 for (ii in 1:2){
   
   # Plots will be saved here
-  plots = list(NULL, NULL, NULL, NULL, NULL, NULL)
+  plots = list(NULL, NULL, NULL, NULL)
   
   # All data sets
-  for (i in 1:6) {
+  for (i in 1:4) {
     
     # Info for one sub-graph
     folder_name = folder_names[i]
@@ -50,7 +50,7 @@ for (ii in 1:2){
     
     # Saving stuff into data frame
     data_frame <- data.frame(sig_values,t(leave_out))
-    names(data_frame) <- c("Cross-testing", "Leaveout set", "size")
+    names(data_frame) <- c("Cross-validation and cross-testing", "Cross-validation and testing", "size")
     
     # Melting the data into long format
     data_long <- melt(data_frame,id.vars = "size",variable.name = "Pipelines", value.name = "pipeline_value")
@@ -64,9 +64,11 @@ for (ii in 1:2){
       geom_point(size=2) + 
       theme(legend.position="none")
     
-    if (i == 6){
-      fig = fig + theme(legend.justification=c(1,0), legend.position=c(1,0)) + 
-        theme(legend.key = element_blank())
+    # Legend for the last image
+    if (i == 4){
+      fig = fig + theme(legend.position="bottom") + 
+        theme(legend.key = element_blank(), legend.text=element_text(size=8), legend.direction="vertical", legend.title=element_text(size=8))
+      fig = fig + scale_y_continuous(breaks=pretty_breaks(n=2)) + theme(legend.key.height=unit(0.7,"line"))
     }
     
     
@@ -83,13 +85,13 @@ for (ii in 1:2){
   # File name and save to pdf
   
   if (ii == 1) {
-    pdf("../figures/accuracy2_with3.pdf")
+    pdf("../figures/accuracy2_with3.pdf",  width=7, height=5)
   } else {
-    pdf("../figures/sig2_with3.pdf")
+    pdf("../figures/sig2_with3.pdf",  width=7, height=5)
   }
   
   # Using function from there: http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot2)/
-  multiplot(plots[[1]], plots[[2]], plots[[3]], plots[[4]], plots[[5]], plots[[6]], cols=2)
+  multiplot(plots[[1]], plots[[2]], plots[[3]], plots[[4]], cols=2)
 
   dev.off()
 }
