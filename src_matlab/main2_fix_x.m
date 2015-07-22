@@ -21,6 +21,7 @@ load(data_location);
 
 % Maximum number of samples
 n = size(data_class0, 1);
+f = size(data_class0, 2);
 
 % Do many runs
 for i_run = 0:n_runs-1

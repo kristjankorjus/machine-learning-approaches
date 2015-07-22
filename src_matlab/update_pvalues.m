@@ -11,10 +11,15 @@ load(['../results/', name_of_the_experiment,'/results_all.mat'])
 % Change p-values (results = pipeline * {acc, p-value} * x_value * runs )
 for i_pipeline = 1:size(results_all, 1)
   for i_x = 1:size(results_all, 3)
+    
+    % Take a particular null-distribution
+    i_null = squeeze(null_distribution(i_pipeline, 1, i_x, :));
+
+    % Add tiny noise to make "<" operator better
+    i_null = i_null + ( randn(size(i_null)) * 0.00001 );
+
     for i_runs = 1:size(results_all, 4)
-      % Take a particular null-distribution
-      i_null = squeeze(null_distribution(i_pipeline, 1, i_x, :));
-      
+     
       % Count more extreme values
       new_p_value = sum(results_all(i_pipeline, 1, i_x, i_runs) > i_null) / length(i_null);
       

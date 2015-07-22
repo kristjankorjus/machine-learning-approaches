@@ -8,7 +8,9 @@ library("gridExtra")
 library("scales")
 
 folder_names = c('eeg_fix', 'gen_fix', 'spikes_fix', 'random_fix')
-ps = c(0.01, 0.01, 0.01, 0.01)
+#ps = c(0.01, 0.01, 0.01, 0.01)
+ps = c(0.05, 0.05, 0.05, 0.05)
+#ps = c(0.5, 0.5, 0.5, 0.5)
 data_titles = c('EEG', 'Generated', 'Spikes', 'Random')
 
 # Load data
@@ -68,7 +70,7 @@ for (ii in 1:2){
     if (i == 4){
       fig = fig + theme(legend.position="bottom") + 
         theme(legend.key = element_blank(), legend.text=element_text(size=8), legend.direction="vertical", legend.title=element_text(size=8))
-      fig = fig + scale_y_continuous(breaks=pretty_breaks(n=2)) + theme(legend.key.height=unit(0.7,"line"))
+      fig = fig + scale_y_continuous(breaks=pretty_breaks(n=2), limits=c(0, 0.1)) + theme(legend.key.height=unit(0.7,"line"))
     }
     
     

@@ -14,8 +14,8 @@ export perm="true"
 
 # Fixing some parameters for both of the experiments
 
-export number_of_runs=2
-export total_number_of_runs=100
+export number_of_runs=20
+export total_number_of_runs=1000
 
 # Fixing some parameters for the second experiment
 
