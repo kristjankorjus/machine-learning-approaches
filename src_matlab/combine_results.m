@@ -1,17 +1,8 @@
-function combine_results( number_of_workers, name_of_the_experiment, perm )
+function combine_results( number_of_workers, name_of_the_experiment)
 %combine_results combines the results of the main.m
 
-% If not said otherwise assume that its not a permutation test
-if nargin < 3
-  perm = false;
-end
-
 % Correct folder: analysis or permutation test?
-if perm
-  result_folder = '../results/perm/';
-else
-  result_folder = '../results/';
-end
+result_folder = '../results/';
 
 % Load one instance for size
 load([result_folder, name_of_the_experiment,'/results', num2str(0), '.mat'])
