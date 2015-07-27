@@ -11,53 +11,35 @@ if hyper_parameters(1) == 2
   % Number of training samples
   num_train = size(data_train, 1);
   
-  % Clearing the data
-  clear('data_train', 'data_test');
-  
-  % Performing PCA
-  [~, score, eigen] = princomp(data, 'econ');
-
-  % Calculating cumulative variance
-  cum_eigen = cumsum(eigen) / sum(eigen);
-
-  % Choosing the number of dimensions by cumulative variance
-  max_id = find(cum_eigen > 0.7, 1);
+  % Z-score
+  data = zscore(data);
   
   % Data after the PCA transformation
-  data_train = score(1:num_train, 1:max_id);
-  data_test = score(num_train+1:end, 1:max_id);
+  data_train = data(1:num_train, :);
+  data_test = data(num_train+1:end, :);
 end
 
 % Train model
 if hyper_parameters(2) == 1
   
-  % Train with the SVM classifier
-  try
-    model = svmtrain(data_train, classes_train);
-  catch
-    % If does not converge, helping it by changing many
-    % affecting parameters a bit
-    model = svmtrain(data_train, classes_train, 'kktviolationlevel', ...
-      0.3, 'tolkkt', 0.01, 'boxconstraint', 0.1);
-  end
-  
-  %model = ClassificationTree.fit(data_train, classes_train);
-  
+  % Train model
+  model = svmtrain(classes_train, data_train, ['-c ', num2str(0.01), ' -q']);
+
   % Predict with the model
-  predictions = svmclassify(model, data_test);
-  %predictions = model.predict(data_test);
+  predictions = svmpredict(classes_test, data_test, model, ' -q');
   
 elseif hyper_parameters(2) == 2
   
-  % Train with the 1-NN classifier
-  model = ClassificationKNN.fit(data_train, classes_train, ...
-    'NumNeighbors',1);
-  
+  % Train model
+  model = svmtrain(classes_train, data_train, ['-c ', num2str(100), ' -q']);
+
   % Predict with the model
-  predictions = model.predict(data_test);
+  predictions = svmpredict(classes_test, data_test, model, ' -q');
+  
 end
   
 % Number of correct classifications
+
 % Empty can happen if total dataset size is <20
 if isempty(classes_test)
   num_correct = 0;
@@ -65,7 +47,6 @@ else
   cmat = confusionmat(classes_test, predictions);
   num_correct = trace(cmat);
 end
-
 
 end
 

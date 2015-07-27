@@ -1,4 +1,4 @@
-function [ error_rate, pvalue ] = pipeline2( data, classes, leave_out )
+function [ error_rate, pvalue ] = pipeline2( data, classes, leave_out, number_of_permutations )
 %PIPELINE2 Cross-validation + cross-testing
 %   Result: hyper-parameters but no parameters
 %   Uses functions cross_validation and classification
@@ -68,9 +68,6 @@ n = n - n_train;
 error_rate = (n - correct) / n;
 
 %% p-value
-
-% Permutations
-number_of_permutations = 1000;
 
 % Counting correct classifications
 correct = zeros(number_of_permutations, 1);

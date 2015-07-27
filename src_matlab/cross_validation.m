@@ -4,18 +4,13 @@ function [ best_hyper_parameters, partitions ] = cross_validation( data,...
 %   It also uses a function classification.m
 
 % If no given partitioning then make your own.
-% Also, are we going to shuffle the classes?
-
 if nargin < 4
   % Random Partitions for the first cross-validation
   partitions = crossvalind('Kfold', classes, k_fold);
-  shuffling = false;
-else
-  shuffling = true;
 end
 
 % Hyper-parameters
-preprocessing = 1:2;
+preprocessing = 1;
 model = 1:2;
 
 % Correctly classified results
@@ -28,11 +23,6 @@ for ii = 1:k_fold
   
   classes_train = classes(train_id);
   classes_test = classes(test_id);
-  
-  if shuffling
-    classes_train = classes_train(randperm(length(classes_train)));
-    classes_test = classes_test(randperm(length(classes_test)));
-  end
   
   % For-loop for all the hyper-parameters
   for i_preprocessing = preprocessing

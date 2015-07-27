@@ -1,4 +1,4 @@
-function [ error_rate, pvalue ] = pipeline3( data, classes, leave_out )
+function [ error_rate, pvalue ] = pipeline3( data, classes, leave_out, number_of_permutations )
 %PIPELINE3 Cross-validation + test
 %   Result: hyper-parameters and parameters
 %   Uses functions cross_validation and classification
@@ -35,27 +35,26 @@ correct = classification(data_train, ...
 
 % Output
 % Size of the test
-n = n - n_train;
+n_test = n - n_train;
 
 % Error rate
-error_rate = (n - correct) / n;
+error_rate = (n_test - correct) / n_test;
 
 %% p-value
-
-% Permutations
-number_of_permutations = 1000;
 
 % Counting correct classifications
 correct = zeros(number_of_permutations, 1);
 
 for i_perm = 1:number_of_permutations
 
+  % Shuffle classes within partition
+  classes_train_shuffled = shuffle_within_partition(classes_train, partitioning);
+  
   % Cross-validation (shuffling inside)
   best_hyper_parameters = cross_validation(data_train,...
-      classes_train, k_fold, partitioning);
+      classes_train_shuffled, k_fold, partitioning);
     
   % Shuffle classes
-  classes_train_shuffled = classes_train(randperm(length(classes_train)));
   classes_test_shuffled = classes_test(randperm(length(classes_test)));
 
   % Classify the rest of the data
@@ -66,7 +65,8 @@ for i_perm = 1:number_of_permutations
 end
 
 % Error rate
-error_rate_perm = (n-correct) / n;
+error_rate_perm = (n_test - correct) / n_test;
+error_rate_perm = error_rate_perm + 0.000001 * randn(size(error_rate_perm));
 
 pvalue = sum(error_rate_perm < error_rate) / number_of_permutations;
 

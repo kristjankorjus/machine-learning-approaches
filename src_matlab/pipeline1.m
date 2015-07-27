@@ -1,4 +1,4 @@
-function [ error_rate, pvalue ] = pipeline1( data, classes )
+function [ error_rate, pvalue ] = pipeline1( data, classes, number_of_permutations )
 %PIPELINE1 Nested-crossvalidation
 %   Result: no hyper-parameters, no-parameters
 %   Uses functions cross_validation and classification
@@ -42,9 +42,6 @@ end
 error_rate = (n-correct) / n;
 
 %% p-value
-
-% Permutations
-number_of_permutations = 1000;
 
 % Counting correct classifications
 correct = zeros(number_of_permutations, 1);

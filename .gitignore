@@ -3,6 +3,9 @@ data_original/
 figures/
 graphs/old
 
+# Dependency
+src_matlab/libsvm-3.20/
+
 # Matlab autosave
 *.asv
 
