@@ -3,7 +3,7 @@ function [ num_correct ] = classification( data_train, classes_train, ...
 %CLASSIFICATION outputs number of correctly classified instances
 %   Given the hyper-parameters
 
-% If PCA, do PCA
+% If normalization then do normalization
 if hyper_parameters(1) == 2
   % Concatenate data
   data = [data_train; data_test];

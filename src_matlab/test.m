@@ -1,8 +1,8 @@
 % Settings
 number_of_datapoints = 40;
-number_of_features = 5;
+number_of_features = 10;
 number_of_runs = 500;
-number_of_permutations = 200;
+number_of_permutations = 1000;
 
 % Labels
 labels = ones(number_of_datapoints,1);
@@ -19,7 +19,7 @@ for i_run = 1:number_of_runs
   
   % Pipeline 3
   [ error_rates(i_run), pvalues(i_run) ] = ...
-    pipeline3(data, labels, 0.5, number_of_permutations);
+    pipeline2(data, labels, 0.5, number_of_permutations, 5, 5);
   
   % Percent of significant results
   sig_results = sum(pvalues < 0.05) / sum(~isnan(pvalues));

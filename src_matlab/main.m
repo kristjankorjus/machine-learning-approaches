@@ -1,8 +1,10 @@
 function main( data_location, experiment_name, x, worker_id, n_runs )
 %MAIN running the main structure in parallel
 
-% Parameters
-number_of_permutations = 100;
+% Settings
+number_of_permutations = 1000;
+k_fold = 2;
+k_fold_nested = 2;
 
 % Correct folder
 result_folder = '../results/';
@@ -44,13 +46,15 @@ for i_run = 0:n_runs-1
   for ii = 1:length(x)
     jj = x(ii);
     results(1, 1, ii) = 0;
-    results(1, 2, ii) = 0;
+    results(1, 2, ii) = 1;
 %     [results(1, 1, ii), results(1, 2, ii)] = pipeline1(data(1:jj,:),...
 %       classes(1:jj), number_of_permutations);
-    [results(2, 1, ii), results(2, 2, ii)] = pipeline2(data(1:jj,:), ...
-      classes(1:jj), 0.5, number_of_permutations);
+    results(2, 1, ii) = 0;
+    results(2, 2, ii) = 1;
+%     [results(2, 1, ii), results(2, 2, ii)] = pipeline2(data(1:jj,:), ...
+%       classes(1:jj), 0.5, number_of_permutations);
     [results(3, 1, ii), results(3, 2, ii)] = pipeline3(data(1:jj,:), ...
-      classes(1:jj), 0.5, number_of_permutations);
+      classes(1:jj), 0.5, number_of_permutations, k_fold);
   end
   
   fprintf('Finished %d run out of %d (ID: %d)\n',i_run+1, n_runs, ...

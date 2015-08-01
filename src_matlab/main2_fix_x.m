@@ -2,12 +2,16 @@ function main2_fix_x( data_location, experiment_name, x, leave_out, ...
   worker_id, n_runs)
 %MAIN running the main structure in parallel
 
+% Settings
+number_of_permutations = 1000;
+k_fold = 2;
+
 % Correct folder
 result_folder = '../results/';
 
 fprintf(['\n\nStart experiment: ', experiment_name, '\n\n']);
 
-%% Load data
+% Load data
 load(data_location);
 
 % Maximum number of samples
@@ -17,7 +21,7 @@ f = size(data_class0, 2);
 % Do many runs
 for i_run = 0:n_runs-1
   
-  %% Randomize and construct data
+  % Randomize and construct data
 
   % Random permutation for the data
   rng(randi(1000,1)+worker_id);
@@ -32,7 +36,7 @@ for i_run = 0:n_runs-1
   classes = zeros(n,1);
   classes(2:2:n) = 1;
   
-  %% Main structure
+  % Main structure
 
   % Initialization for p-values
   results = zeros(2,2,length(leave_out)); 
@@ -40,16 +44,18 @@ for i_run = 0:n_runs-1
   % Main loop
   for ii = 1:length(leave_out)
     jj = leave_out(ii);
-    [results(1, 1, ii), results(1, 2, ii)] = pipeline2(data(1:x,:), ...
-      classes(1:x), jj);
+    results(1, 1, ii) = 0;
+    results(1, 2, ii) = 1;
+%     [results(1, 1, ii), results(1, 2, ii)] = pipeline2(data(1:x,:), ...
+%       classes(1:x), jj);
     [results(2, 1, ii), results(2, 2, ii)] = pipeline3(data(1:x,:), ...
-      classes(1:x), jj);
+      classes(1:x), jj, number_of_permutations, k_fold);
   end
   
   fprintf('Finished %d run out of %d (ID: %d)\n',i_run+1, n_runs, ...
       worker_id);
 
-  %% Saving the results
+  % Saving the results
   if ~exist([result_folder, experiment_name],'dir')
     mkdir([result_folder, experiment_name]);
   end
