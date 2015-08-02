@@ -10,12 +10,12 @@
 
 # Fixing some parameters for both of the experiments
 
-export number_of_runs=20
-export total_number_of_runs=1000
+export number_of_runs=8
+export total_number_of_runs=400
 
 # Fixing some parameters for the second experiment
 
-export leave_out="[20:20:80]/100"
+export leave_out="[20:30:80]/100"
 
 #
 # Data set 4: random

@@ -4,7 +4,8 @@ function main2_fix_x( data_location, experiment_name, x, leave_out, ...
 
 % Settings
 number_of_permutations = 1000;
-k_fold = 2;
+k_fold1 = 5;
+k_fold2 = 5;
 
 % Correct folder
 result_folder = '../results/';
@@ -44,12 +45,10 @@ for i_run = 0:n_runs-1
   % Main loop
   for ii = 1:length(leave_out)
     jj = leave_out(ii);
-    results(1, 1, ii) = 0;
-    results(1, 2, ii) = 1;
-%     [results(1, 1, ii), results(1, 2, ii)] = pipeline2(data(1:x,:), ...
-%       classes(1:x), jj);
+    [results(1, 1, ii), results(1, 2, ii)] = pipeline2(data(1:x,:), ...
+      classes(1:x), jj, number_of_permutations, k_fold1, k_fold2);
     [results(2, 1, ii), results(2, 2, ii)] = pipeline3(data(1:x,:), ...
-      classes(1:x), jj, number_of_permutations, k_fold);
+      classes(1:x), jj, number_of_permutations, k_fold1);
   end
   
   fprintf('Finished %d run out of %d (ID: %d)\n',i_run+1, n_runs, ...

@@ -19,25 +19,15 @@ if hyper_parameters(1) == 2
   data_test = data(num_train+1:end, :);
 end
 
+
 % Train model
-if hyper_parameters(2) == 1
-  
-  % Train model
-  model = svmtrain(classes_train, data_train, ['-c ', num2str(0.01), ' -q']);
+c_parameters =  [0.0001, 0.01, 1];
+model = svmtrain(classes_train, data_train, ['-c ', ...
+  num2str(c_parameters(hyper_parameters(2))), ' -q']);
 
-  % Predict with the model
-  predictions = svmpredict(classes_test, data_test, model, ' -q');
-  
-elseif hyper_parameters(2) == 2
-  
-  % Train model
-  model = svmtrain(classes_train, data_train, ['-c ', num2str(100), ' -q']);
+% Predict with the model
+predictions = svmpredict(classes_test, data_test, model, ' -q');
 
-  % Predict with the model
-  predictions = svmpredict(classes_test, data_test, model, ' -q');
-  
-end
-  
 % Number of correct classifications
 
 % Empty can happen if total dataset size is <20

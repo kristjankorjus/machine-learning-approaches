@@ -11,10 +11,10 @@ end
 
 % Hyper-parameters
 preprocessing = 1:2;
-model = 1:2;
+model_c = 1:3;
 
 % Correctly classified results
-correct = zeros(length(preprocessing), length(model));
+correct = zeros(length(preprocessing), length(model_c));
 
 for ii = 1:k_fold
   % Indeces for test and train
@@ -26,7 +26,7 @@ for ii = 1:k_fold
   
   % For-loop for all the hyper-parameters
   for i_preprocessing = preprocessing
-    for i_model = model
+    for i_model = model_c
       correct(i_preprocessing, i_model) = ...
         correct(i_preprocessing, i_model) + ...
         classification(data(train_id,:), classes_train,...
