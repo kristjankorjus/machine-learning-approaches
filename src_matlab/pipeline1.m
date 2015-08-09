@@ -68,7 +68,7 @@ end
 error_rate_perm = (n - correct) / n;
 %error_rate_perm = error_rate_perm + 0.000001 * randn(size(error_rate_perm));
 
-pvalue = sum(error_rate_perm < error_rate) / number_of_permutations;
+pvalue = sum(error_rate_perm <= error_rate) / number_of_permutations;
 
 end
 

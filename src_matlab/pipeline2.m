@@ -49,6 +49,7 @@ end
 
 % Error rate (first output)
 error_rate = (n_test - correct) / n_test;
+acc = correct / n_test;
 
 %
 % Permutation test
@@ -91,10 +92,30 @@ for i_perm = 1:number_of_permutations
 
 end
 
+% Because permutation test is discrete, we sometimes 
+% adjust accuracy if its on the boarder
+acc_perm = correct / n_test;
+x = sort(acc_perm);
+cutoff = x(floor(0.95 * number_of_permutations)); % provides percentile
+
+if acc == cutoff % if our accuracy lies at the border
+
+  edge_lower = find(x==cutoff, 1, 'first'); % provides lowest value of percentile at cutoff
+  edge_upper = find(x==cutoff, 1, 'last'); % provides highest value of percentile at cutoff
+  edge_true = 0.95 * number_of_permutations;
+  sum_lower = edge_true - edge_lower;
+  sum_upper = edge_upper - edge_true;
+  prob_sig = sum_upper / (sum_lower + sum_upper);
+
+  % adjust accuracy based on probability or leave unchanged
+  acc = acc + 0.0000001 * (prob_sig > rand);
+  error_rate = 1 - acc;
+end
+
 % Error rate + adding noise for "<" sign
 error_rate_perm = (n_test - correct) / n_test;
 %error_rate_perm = error_rate_perm + 0.000001 * randn(size(error_rate_perm));
 
-pvalue = sum(error_rate_perm < error_rate) / number_of_permutations;
+pvalue = sum(error_rate_perm <= error_rate) / number_of_permutations;
 
 end

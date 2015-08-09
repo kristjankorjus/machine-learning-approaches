@@ -10,7 +10,7 @@ if nargin < 4
 end
 
 % Hyper-parameters
-preprocessing = 1:2;
+preprocessing = 1;
 model_c = 1:3;
 
 % Correctly classified results
