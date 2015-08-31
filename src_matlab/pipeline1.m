@@ -1,4 +1,5 @@
-function [ error_rate, pvalue ] = pipeline1( data, labels, number_of_permutations, k_fold_outer, k_fold_inner)
+function [ error_rate, pvalue1, pvalue2, pvalue3, pvalue4 ] = ...
+  pipeline1( data, labels, number_of_permutations, k_fold_outer, k_fold_inner)
 %PIPELINE1 Nested-crossvalidation
 %   Result: no hyper-parameters, no-parameters
 %   Uses functions cross_validation and classification
@@ -34,6 +35,7 @@ end
 
 % Accuracy
 error_rate = (n-correct) / n;
+acc = correct / n;
 
 %% p-value
 
@@ -64,11 +66,15 @@ for i_perm = 1:number_of_permutations
   end
 end
 
-% Error rate + adding noise for "<" sign
-error_rate_perm = (n - correct) / n;
-%error_rate_perm = error_rate_perm + 0.000001 * randn(size(error_rate_perm));
+% Because permutation test is discrete, we sometimes 
+% adjust accuracy if its on the boarder
+acc_perm = correct / n;
+acc_perm = acc_perm';
 
-pvalue = sum(error_rate_perm <= error_rate) / number_of_permutations;
+pvalue1 = get_significance('random', acc, acc_perm, 0.05);
+pvalue2 = get_significance('mid', acc, acc_perm, 0.05);
+pvalue3 = get_significance('prctile2', acc, acc_perm, 0.05);
+pvalue4 = get_significance('classical', acc, acc_perm, 0.05);
 
 end
 

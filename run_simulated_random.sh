@@ -10,12 +10,33 @@
 
 # Fixing some parameters for both of the experiments
 
-export number_of_runs=100
-export total_number_of_runs=5000
+export number_of_runs=10
+export total_number_of_runs=500
 
 # Fixing some parameters for the second experiment
 
-export leave_out="[20:30:80]/100"
+export leave_out="[10:20:90]/100"
+
+
+#
+# Data set 3: gen
+#
+
+export experiment_name="gen"
+export data_title="generated"
+export data_location="../data/data_gen.mat"
+export x_values="20:80:260"
+export p_value=0.05
+
+srun ./wrapper1.sh 
+sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name'); exit;"
+
+export experiment_name="gen_fix"
+export fix_x=100
+
+srun ./wrapper2.sh 
+sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name'); exit;"
+
 
 #
 # Data set 4: random

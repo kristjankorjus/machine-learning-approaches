@@ -10,8 +10,8 @@
 
 # Fixing some parameters for both of the experiments
 
-export number_of_runs=8
-export total_number_of_runs=400
+export number_of_runs=20
+export total_number_of_runs=1000
 
 # Fixing some parameters for the second experiment
 
@@ -65,7 +65,7 @@ sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd
 export experiment_name="gen"
 export data_title="generated"
 export data_location="../data/data_gen.mat"
-export x_values="20:80:260"
+export x_values="20:40:260"
 export p_value=0.05
 
 srun ./wrapper1.sh 

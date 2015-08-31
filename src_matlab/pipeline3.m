@@ -1,4 +1,5 @@
-function [ error_rate, pvalue ] = pipeline3( data, labels, ...
+function [ error_rate, pvalue1, pvalue2, pvalue3, pvalue4 ] = ...
+  pipeline3( data, labels, ...
   leave_out, number_of_permutations, k_fold )
 %PIPELINE3 "Cross-validation + test"
 %   Result: hyper-parameters and parameters
@@ -42,10 +43,9 @@ correct = zeros(number_of_permutations, 1);
 
 for i_perm = 1:number_of_permutations
 
-  % Re-shuffle the data
-  data = data(randperm(n), :);
-  data_train = data(1:n_train, :);
-  data_test = data(n_train+1:end, :);
+  % Re-shuffle the data: train and test separately
+  data_train = data_train(randperm(n_train), :);
+  data_test = data_test(randperm(n_test), :);
   
   % Cross-validation
   best_hyper_parameters = cross_validation(data_train,...
@@ -61,28 +61,12 @@ end
 % Because permutation test is discrete, we sometimes 
 % adjust accuracy if its on the boarder
 acc_perm = correct / n_test;
-x = sort(acc_perm);
-cutoff = x(floor(0.95 * number_of_permutations)); % provides percentile
+acc_perm = acc_perm';
 
-if acc == cutoff % if our accuracy lies at the border
-
-  edge_lower = find(x==cutoff, 1, 'first'); % provides lowest value of percentile at cutoff
-  edge_upper = find(x==cutoff, 1, 'last'); % provides highest value of percentile at cutoff
-  edge_true = 0.95 * number_of_permutations;
-  sum_lower = edge_true - edge_lower;
-  sum_upper = edge_upper - edge_true;
-  prob_sig = sum_upper / (sum_lower + sum_upper);
-
-  % adjust accuracy based on probability or leave unchanged
-  acc = acc + 0.0000001 * (prob_sig > rand);
-  error_rate = 1 - acc;
-end
-
-% Error rate + adding noise for "<" sign
-error_rate_perm = (n_test - correct) / n_test;
-%error_rate_perm = error_rate_perm + 0.000001 * randn(size(error_rate_perm));
-
-pvalue = sum(error_rate_perm <= error_rate) / number_of_permutations;
+pvalue1 = get_significance('random', acc, acc_perm, 0.05);
+pvalue2 = get_significance('mid', acc, acc_perm, 0.05);
+pvalue3 = get_significance('prctile2', acc, acc_perm, 0.05);
+pvalue4 = get_significance('classical', acc, acc_perm, 0.05);
 
 end
 

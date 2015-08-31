@@ -66,8 +66,8 @@ for (ii in 1:2){
     if (i == 4){
       fig = fig + theme(legend.position="bottom") + 
         theme(legend.key = element_blank(), legend.text=element_text(size=8), legend.direction="vertical", legend.title=element_text(size=8))
-      fig = fig + scale_y_continuous(breaks=pretty_breaks(n=4), limits=c(0.02, 0.08)) + theme(legend.key.height=unit(0.7,"line"))
-      #
+      fig = fig + scale_y_continuous(breaks=pretty_breaks(n=2), limits=c(0, 0.1)) + theme(legend.key.height=unit(0.7,"line"))
+      #, limits=c(0.02, 0.08)
     }
     
     # Remove axes labels

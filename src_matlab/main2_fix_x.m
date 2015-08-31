@@ -40,14 +40,16 @@ for i_run = 0:n_runs-1
   % Main structure
 
   % Initialization for p-values
-  results = zeros(2,2,length(leave_out)); 
+  results = zeros(2, 5, length(leave_out)); 
 
   % Main loop
   for ii = 1:length(leave_out)
     jj = leave_out(ii);
-    [results(1, 1, ii), results(1, 2, ii)] = pipeline2(data(1:x,:), ...
+    [results(1, 1, ii), results(1, 2, ii), results(1, 3, ii), ...
+      results(1, 4, ii), results(1, 5, ii)] = pipeline2(data(1:x,:), ...
       classes(1:x), jj, number_of_permutations, k_fold1, k_fold2);
-    [results(2, 1, ii), results(2, 2, ii)] = pipeline3(data(1:x,:), ...
+    [results(2, 1, ii), results(2, 2, ii), results(2, 3, ii), ...
+      results(2, 4, ii), results(2, 5, ii)] = pipeline3(data(1:x,:), ...
       classes(1:x), jj, number_of_permutations, k_fold1);
   end
   
