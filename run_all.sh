@@ -85,14 +85,14 @@ sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd
 export experiment_name="random"
 export data_title="random"
 export data_location="../data/data_random.mat"
-export x_values="20:60:80"
+export x_values="40:60:100"
 export p_value=0.05
 
 srun ./wrapper1.sh 
 sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name'); exit;"
 
 export experiment_name="random_fix"
-export fix_x=80
+export fix_x=100
 
 srun ./wrapper2.sh 
 sh /storage/software/MATLAB_R2013b/bin/matlab -nodisplay -nosplash -nojvm -r "cd('src_matlab'); combine_results($total_number_of_runs,'$experiment_name'); exit;"

@@ -41,7 +41,7 @@ for (ii in 1:2){
     } else {
       
       # Finding all the values below given p-value
-      p_values <- values <  p
+      p_values <- values <=  p
       
       # Propotion of them
       sig_values <- t(apply(p_values,c(1,2),sum)/dim(results)[4])
