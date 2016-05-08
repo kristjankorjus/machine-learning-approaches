@@ -5,6 +5,8 @@ function P = get_significance(method,ACC,ACC_PERM,alpha)
 % ACC_PERM: n_iter x n_perm matrix of accuracies
 % alpha: desired p-cutoff
 
+% Comment: in the article, method 'random' is used.
+
 [n_iter,n_perm] = size(ACC_PERM);
 
 switch lower(method)
