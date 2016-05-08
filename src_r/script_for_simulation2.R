@@ -14,6 +14,7 @@ p = 0.05
 title = 'Simulated data'
 x_axes = 'Size of the test set'
 y_axes = c('Average accuracy', 'Propotion of significant results')
+x_tick_names = c('10%', '30%', '50%', '70%', '90%')
 
 # Plots will be saved here
 plots = list(NULL, NULL)
@@ -61,7 +62,7 @@ for (ii in 1:2){
     geom_point(size=2)+
     scale_colour_manual(values=c("#00BA38", "#619CFF")) +
     labs(y = y_axes[ii]) +
-    scale_x_continuous(breaks=leave_out)
+    scale_x_continuous(breaks=leave_out, labels=x_tick_names)
   
   # Different for two graphs
   if (ii==1) {

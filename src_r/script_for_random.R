@@ -18,6 +18,7 @@ p = 0.05
 title = 'Random data'
 x_axes = 'Size of the data set'
 y_axes = c('Average accuracy', 'Propotion of significant results')
+x_tick_names = c('10%', '30%', '50%', '70%', '90%')
 
 # Load data
 out <- load_data(paste("../results/", folder_name, "/results_all.mat", sep = ""))
@@ -146,7 +147,7 @@ for (ii in 1:2){
     geom_point(size=2)+
     scale_colour_manual(values=c("#00BA38", "#619CFF")) +
     labs(y = y_axes[ii]) +
-    scale_x_continuous(breaks=leave_out)
+    scale_x_continuous(breaks=leave_out, labels=x_tick_names)
   
   fig = fig + theme(legend.background = element_rect(fill=alpha('white', 0.4)))
   
