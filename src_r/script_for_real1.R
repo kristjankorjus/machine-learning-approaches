@@ -9,26 +9,23 @@ library("scales")
 
 # Plots will be saved here
 plots = list(NULL, NULL, NULL, NULL)
-
-folder_names = c('eeg_fix', 'spikes_fix')
+folder_names = c('eeg', 'spikes')
 titles = c('Electroencephalogram data', 'Spikes data')
 count = 1
-
-p = 0.05
-x_axes = 'Size of the test set'
-y_axes = c('Average accuracy', 'Propotion of significant results')
-x_tick_names = c('10%', '30%', '50%', '70%', '90%')
 
 for (i_real in c(1,2)) {
   # Initial parameters
   folder_name = folder_names[i_real]
   title = titles[i_real]
-    
+  
+  p = 0.05
+  x_axes = 'Size of the data set'
+  y_axes = c('Average accuracy', 'Propotion of significant results')
+  
   # Load data
   out <- load_data(paste("../results/", folder_name, "/results_all.mat", sep = ""))
   results <- out[[1]]
   x <- out[[2]]
-  leave_out <- out[[3]]
   
   # Two graphs
   for (ii in 1:2){
@@ -41,8 +38,8 @@ for (i_real in c(1,2)) {
       
       # Mean
       sig_values <- 1-t(apply(values,c(1,2),mean))
-    
-    # Propotion of significant results graph
+      
+      # Propotion of significant results graph
     } else {
       
       # Finding all the values below given p-value
@@ -54,8 +51,8 @@ for (i_real in c(1,2)) {
     }
     
     # Saving stuff into data frame
-    data_frame <- data.frame(sig_values,t(leave_out))
-    names(data_frame) <- c("Cross-validation and cross-testing", "Cross-validation and testing", "size")
+    data_frame <- data.frame(sig_values,t(x))
+    names(data_frame) <- c("Nested cross-validation", "Cross-validation and cross-testing", "Cross-validation and testing", "size")
     
     # Melting the data into long format
     data_long <- melt(data_frame,id.vars = "size",variable.name = "Pipelines", value.name = "pipeline_value")
@@ -64,10 +61,9 @@ for (i_real in c(1,2)) {
     theme_set(theme_bw(base_size = 12))
     fig = ggplot(data=data_long, aes(x=size, y=pipeline_value, colour=Pipelines)) + 
       geom_path(alpha = 0.5, size = 1) + 
-      geom_point(size=2)+
-      scale_colour_manual(values=c("#00BA38", "#619CFF")) +
-      labs(y = y_axes[ii]) +
-      scale_x_continuous(breaks=leave_out, labels=x_tick_names)
+      geom_point(size=2) + 
+      labs(y = y_axes[ii]) + 
+      scale_x_continuous(breaks=x)
     
     fig = fig + theme(legend.background = element_rect(fill=alpha('white', 0.4)))
     
@@ -80,26 +76,29 @@ for (i_real in c(1,2)) {
       # No legend, no x-axes
       fig = fig + theme(legend.position="none") + theme(axis.title.x = element_blank())
       
+      
     } else {
       
       # Legend
-      loc = c(0, 0.5)
-      fig = fig + theme(legend.justification=c(loc[i_real],0), legend.position=c(loc[i_real],0)) + 
+      fig = fig + theme(legend.justification=c(1,0), legend.position=c(1,0)) + 
         theme(legend.key = element_blank(), legend.text=element_text(size=8), legend.direction="vertical", legend.title=element_blank()) + theme(legend.key.height=unit(0.7,"line"))
       
       # X-axes
       fig = fig + labs(x = x_axes)
+      
+      # Y-axes
+      fig = fig + scale_y_continuous(limits=c(0, 1))
     }
     
     # Save plot object to list
     plots[[count]] = fig
     count = count + 1
-  
+    
   }
-}
+} 
 
 # File name and save to tiff
-tiff("../figures/Fig7.tiff",  width=9, height=5, units="in", res = 300, compression = "lzw", type = "cairo")
+tiff("../figures/Fig6.tiff",  width=9, height=5, units="in", res = 300, compression = "lzw", type = "cairo")
 
 # Using function from there: http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot2)/
 multiplot(plots[[1]], plots[[2]], plots[[3]], plots[[4]], cols=2)

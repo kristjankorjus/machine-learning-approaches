@@ -8,13 +8,12 @@ library("gridExtra")
 library("scales")
 
 # Initial parameters
-folder_name = 'gen_fix'
+folder_name = 'gen'
 p = 0.05
 
 title = 'Simulated data'
-x_axes = 'Size of the test set'
+x_axes = 'Size of the data set'
 y_axes = c('Average accuracy', 'Propotion of significant results')
-x_tick_names = c('10%', '30%', '50%', '70%', '90%')
 
 # Plots will be saved here
 plots = list(NULL, NULL)
@@ -23,7 +22,6 @@ plots = list(NULL, NULL)
 out <- load_data(paste("../results/", folder_name, "/results_all.mat", sep = ""))
 results <- out[[1]]
 x <- out[[2]]
-leave_out <- out[[3]]
 
 # Two graphs
 for (ii in 1:2){
@@ -36,8 +34,8 @@ for (ii in 1:2){
     
     # Mean
     sig_values <- 1-t(apply(values,c(1,2),mean))
-  
-  # Propotion of significant results graph
+    
+    # Propotion of significant results graph
   } else {
     
     # Finding all the values below given p-value
@@ -49,8 +47,8 @@ for (ii in 1:2){
   }
   
   # Saving stuff into data frame
-  data_frame <- data.frame(sig_values,t(leave_out))
-  names(data_frame) <- c("Cross-validation and cross-testing", "Cross-validation and testing", "size")
+  data_frame <- data.frame(sig_values,t(x))
+  names(data_frame) <- c("Nested cross-validation", "Cross-validation and cross-testing", "Cross-validation and testing", "size")
   
   # Melting the data into long format
   data_long <- melt(data_frame,id.vars = "size",variable.name = "Pipelines", value.name = "pipeline_value")
@@ -59,10 +57,9 @@ for (ii in 1:2){
   theme_set(theme_bw(base_size = 12))
   fig = ggplot(data=data_long, aes(x=size, y=pipeline_value, colour=Pipelines)) + 
     geom_path(alpha = 0.5, size = 1) + 
-    geom_point(size=2)+
-    scale_colour_manual(values=c("#00BA38", "#619CFF")) +
-    labs(y = y_axes[ii]) +
-    scale_x_continuous(breaks=leave_out, labels=x_tick_names)
+    geom_point(size=2) + 
+    labs(y = y_axes[ii]) + 
+    scale_x_continuous(breaks=x)
   
   # Different for two graphs
   if (ii==1) {
@@ -73,24 +70,27 @@ for (ii in 1:2){
     # No legend, no x-axes
     fig = fig + theme(legend.position="none") + theme(axis.title.x = element_blank())
     
+    
   } else {
     
     # Legend
-    fig = fig + theme(legend.justification=c(0.5,0), legend.position=c(0.5,0)) + 
+    fig = fig + theme(legend.justification=c(1,0), legend.position=c(1,0)) + 
       theme(legend.key = element_blank(), legend.text=element_text(size=8), legend.direction="vertical", legend.title=element_blank()) + theme(legend.key.height=unit(0.7,"line"))
     
     # X-axes
     fig = fig + labs(x = x_axes)
     
+    # Y-axes
+    fig = fig + scale_y_continuous(limits=c(0, 1))
   }
   
   # Save plot object to list
   plots[[ii]] = fig
-
+  
 }
 
 # File name and save to tiff
-tiff("../figures/Fig5.tiff",  width=6, height=5, units="in", res = 300, compression = "lzw", type = "cairo")
+tiff("../figures/Fig4.tiff",  width=6, height=5, units="in", res = 300, compression = "lzw", type = "cairo")
 
 # Using function from there: http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot2)/
 multiplot(plots[[1]], plots[[2]], cols=1)

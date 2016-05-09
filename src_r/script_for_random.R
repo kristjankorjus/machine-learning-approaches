@@ -182,8 +182,8 @@ for (ii in 1:2){
   
 }
 
-# File name and save to pdf
-pdf("../figures/random.pdf",  width=10, height=5)
+# File name and save to tiff
+tiff("../figures/Fig8.tiff",  width=10, height=5, units="in", res = 300, compression = "lzw", type = "cairo")
 
 # Using function from there: http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot2)/
 multiplot(plots[[1]], plots[[2]], plots[[3]], plots[[4]], cols=2)
