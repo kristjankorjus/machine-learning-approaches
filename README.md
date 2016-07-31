@@ -1,4 +1,4 @@
-# Supporting Information for an article "Improving Classification Performance by Test Data Resampling" submitted to PLOS ONE.
+# Supporting Information for an article "An efficient data partitioning to improve classification performance while keeping parameters interpretable" submitted to PLOS ONE.
 
 Authors: Kristjan Korjus (korjus@gmail.com), Martin Hebart and Raul Vicente
 
